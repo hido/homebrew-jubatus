@@ -37,9 +37,9 @@ class Jubatus < Formula
   sha1 '104daca02a1f31f0e29ebbd8f45c7ed4200baaad'
   version '0.4.5'
 
-  option 'enable-zookeeper', 'Using zookeeper for distributed environemnt'
-  option 'enable-mecab', 'Using mecab for Japanese NLP'
-  option 'enable-re2', 'Using re2 for regx'
+  option 'enable-zookeeper', 'Enable zookeeper for distributed environemnt'
+  option 'disable-mecab', 'Disable mecab for Japanese NLP'
+  option 'disable-re2', 'Disable re2 for regx'
 
   depends_on 'glog'
   depends_on 'pkg-config'
@@ -47,7 +47,7 @@ class Jubatus < Formula
   depends_on 'jubatus-msgpack-rpc'
 
   depends_on ZooKeeperRequirement.new if build.include? 'enable-zookeeper'
-  depends_on 'mecab' if build.include? "enable-mecab"
+  depends_on 'mecab' unless build.include? "disable-mecab"
   depends_on 're2' unless build.include? "disable-re2"
   # snow leopard default gcc version is 4.2
   depends_on 'gcc' if build.include? 'snow-leopard'
